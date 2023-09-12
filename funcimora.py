@@ -1,5 +1,6 @@
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
+from calendar import monthrange
 
 # IMPORTAR CSV
 def read_csv(path):
@@ -31,8 +32,9 @@ def read_csv(path):
 
 # ANALIZAR RANGOS DE FECHAS DE INICIO Y FINAL POR EMPRESA
 def dates(companyDates):
-    Tfmax = companyDates[0][0]
+    Tfmax = companyDates[0][0] - timedelta(days=1)
     C = 0
+    days = [0] * 12
     for date in companyDates:
         if Tfmax >= date[0]:
             if Tfmax < date[1]:
@@ -40,12 +42,39 @@ def dates(companyDates):
                 NumM = date[1].month - Tfmax.month
                 Ti = Tfmax
                 Tf = date[1]
+            else:
+                continue
         elif Tfmax < date[1]:
             C = 1
             NumM = date[1].month - date[0].month
             Ti = date[0]
             Tf = date[1]
+        else:
+            print('Error en la data. Recuerde ordenar las fechas de menor a mayor para la fecha de inicio')
+            continue
         # Ejecutar funcion que cuenta la cantidad de dias dentro del rango
-        days = count_days(NumM, Ti, Tf)
-        Tfmax = Tf
+        days = count_days(NumM, Ti, Tf, C, days)
+        if Tf > Tfmax:
+            Tfmax = Tf
+    return days
+
+# CALCULAR LA CANTIDAD DE DIAS DENTRO DE UN RANGO DEFINIDO DE FECHAS
+def count_days(NumM,Ti,Tf,C,days):
+    Di = Ti.day
+    Mi = Ti.month
+    Yi = Ti.year
+    Df = Tf.day
+    Mf = Tf.month
+    Yf = Tf.year
+
+    # Cambio de mes
+    if NumM >= 1:
+        for it in range(NumM):
+            days[Mi + it - 1] = monthrange(Yi, (Mi + it))[1] - Di + C + days[Mi + it - 1]
+            Di = 0
+            C = 0
+        days[Mf - 1] = Df + days[Mf - 1]
+    # En el mismo mes
+    else:
+        days[Mf - 1] = Df - Di + C + days[Mf - 1]
     return days

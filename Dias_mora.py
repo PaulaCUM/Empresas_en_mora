@@ -7,6 +7,7 @@ Mora = {}
 companies = funcimora.read_csv(path)
 
 for key, value in companies.items():
-    funcimora.dates(value)
-    # days = funcimora.dates(value)
-    # Mora[key] = days
+    # funcimora.dates(value)
+    days = funcimora.dates(value)
+    Mora[key] = days
+print(Mora)
