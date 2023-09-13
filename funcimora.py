@@ -25,14 +25,18 @@ def read_csv(path,row0,row1):
         companies = {}
         values = []
         key = ""
+        year = ""
+        name = ""
         DateFormat = '%d/%m/%y'
         next(data)
 
         for row in data:
             if row[0] != '':
-                if key != row[0]:
+                if name != row[0] or year != str(row[row0][-2:]):
                     # Obtener nombres de las empresas
-                    key = row[0]      
+                    year = str(row[row0][-2:])
+                    name = row[0]
+                    key = name + '_' + year                        
                     values = []                                   
                 # Obtener valores de cada empresa y convertirlos a formato "fecha"
                 values.append([datetime.strptime(row[row0], DateFormat), datetime.strptime(row[row1], DateFormat)])

@@ -1,4 +1,5 @@
 import funcimora
+#!/usr/bin/env python
 
 # path = "Base_Datos/Dias_mora_2023.csv"
 # path2 = "Base_Datos/Dias de mora por empresa.csv"
