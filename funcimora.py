@@ -4,7 +4,7 @@ from calendar import monthrange
 import calendar
 
 # IMPORTAR CSV
-def read_csv(path):
+def read_csv(path,row0,row1):
     with open(path,'r') as csvfile:
         data = csv.reader(csvfile, delimiter=';')
         companies = {}
@@ -19,8 +19,8 @@ def read_csv(path):
                     # Obtener nombres de las empresas
                     key = row[0]      
                     values = []                                   
-                # Obtener valores de cada empresa
-                values.append([datetime.strptime(row[2], DateFormat), datetime.strptime(row[3], DateFormat)])
+                # Obtener valores de cada empresa y convertirlos a formato "fecha"
+                values.append([datetime.strptime(row[row0], DateFormat), datetime.strptime(row[row1], DateFormat)])
                 # Crear diccionario con las empresas y sus valores
                 companies[key] = values
     print('Se cargaron correctamente las siguientes empresas:')
