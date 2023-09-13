@@ -80,6 +80,7 @@ def count_days(NumM,Ti,Tf,C,days):
         days[Mf - 1] = Df - Di + C + days[Mf - 1]
     return days
 
+# CREAR ARCHIVO CSV DE SALIDA PARA MOSTRAR LOS RESULTADOS
 def write_csv(Mora,path):   
     # Encabezado tabla 
     header = {
@@ -103,6 +104,7 @@ def write_csv(Mora,path):
             row = [key] + values     
             writer.writerow(row)   
 
+# Convertir valor del diccionario en listas para el CSV
 def dicc_to_list(dicc):
     Col1 = list(dicc.keys())
     FirstCol = [Col1[0]]
