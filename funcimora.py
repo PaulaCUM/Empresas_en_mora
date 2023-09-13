@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime, timedelta
 from calendar import monthrange
+import calendar
 
 # IMPORTAR CSV
 def read_csv(path):
@@ -78,3 +79,33 @@ def count_days(NumM,Ti,Tf,C,days):
     else:
         days[Mf - 1] = Df - Di + C + days[Mf - 1]
     return days
+
+def write_csv(Mora,path):   
+    # Encabezado tabla 
+    header = {
+        'Company': list(calendar.month_name[month+1] for month in range(12))
+    }
+
+    # Nombre archivo resultante
+    csvFile = path
+
+    # Escribir en el archivo CSV
+    with open(csvFile, 'w', newline='') as file:
+        writer = csv.writer(file)
+        
+        FirstHeader, valores = dicc_to_list(header)
+
+        fieldnames = FirstHeader + valores
+        writer.writerow(fieldnames)
+
+        # Escribir los datos
+        for key, values in Mora.items(): 
+            row = [key] + values     
+            writer.writerow(row)   
+
+def dicc_to_list(dicc):
+    Col1 = list(dicc.keys())
+    FirstCol = [Col1[0]]
+    values = list(dicc.values())
+    valores = values[0]
+    return FirstCol, valores

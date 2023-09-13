@@ -10,4 +10,6 @@ for key, value in companies.items():
     # funcimora.dates(value)
     days = funcimora.dates(value)
     Mora[key] = days
-print(Mora)
+
+path = "Base_Datos/Dias de mora por empresa.csv"
+funcimora.write_csv(Mora,path)
