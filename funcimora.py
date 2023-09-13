@@ -3,6 +3,21 @@ from datetime import datetime, timedelta
 from calendar import monthrange
 import calendar
 
+# INICIALIZACION DE VARIABLES POR PARTE DEL USUARIO
+def init_data():
+    print("IMPORTANTE: Para ejecutar correctamente este script es necesario que la base de datos cumpla los siguientes requisitos:\n1. La tabla debe estar organizada alfabeticamente por nombre de empresa.\n2. Los datos deben estar organizados ascendentemente por fecha de inicio.\n3. Las fechas deben estar en formato dd/mm/aa\n4. La primera columna de la tabla debe contener los nombres de las empresas.\n5. No debe haber celdas combinadas")
+    print('///---' * 15)
+    path = str(input("Ingrese la direccion del archivo CSV a evaluar.\nRecuerde ingresar la direccion completa, incluyendo el nombre del archivo con su extension.\nPor ejemplo: Documentos/Base_Datos/Dias_mora_2023.csv\nIngrese la direccion del archivo = "))
+    print('///---' * 15)
+    path2 = str(input("Ingrese la direccion donde desea generar el CSV de salida y el nombre del archivo con extension .csv\nPor ejemplo: Documentos/Base_Datos/Dias mora 2023.csv\nIngrese la direccion del archivo = "))
+    print('///---' * 15)
+    fechaInicial = int(input("Ingrese el número de columna correspondiente a la fecha INICIAL de la mora.\nRecuerde iniciar el conteo de columnas en 0 de izquierda a derecha.\nEvite ingresar un numero negativo o un texto ya que esto puede detener la aplicación: "))
+    print('///---' * 15)
+    fechaFinal = int(input("Ingrese el número de columna correspondiente a la fecha FINAL de la mora.\nRecuerde iniciar el conteo de columnas en 0 de izquierda a derecha.\nEvite ingresar un numero negativo o un texto ya que esto puede detener la aplicación: "))
+    print('///---' * 15)
+    Mora = {}
+    return path,path2,fechaInicial,fechaFinal,Mora
+
 # IMPORTAR CSV
 def read_csv(path,row0,row1):
     with open(path,'r') as csvfile:
