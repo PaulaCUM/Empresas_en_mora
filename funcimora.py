@@ -5,7 +5,7 @@ import calendar
 
 # INICIALIZACION DE VARIABLES POR PARTE DEL USUARIO
 def init_data():
-    print("IMPORTANTE: Para ejecutar correctamente este script es necesario que la base de datos cumpla los siguientes requisitos:\n1. La tabla debe estar organizada alfabeticamente por nombre de empresa.\n2. Los datos deben estar organizados ascendentemente por fecha de inicio.\n3. Las fechas deben estar en formato dd/mm/aa\n4. La primera columna de la tabla debe contener los nombres de las empresas.\n5. No debe haber celdas combinadas")
+    print("IMPORTANTE: Para ejecutar correctamente este script es necesario que la base de datos cumpla los siguientes requisitos:\n1. Las fechas deben estar en formato dd/mm/aaaa\n2. La primera columna de la tabla debe contener los nombres de las empresas.\n3. No debe haber celdas combinadas")
     print('///---' * 15)
     path = str(input("Ingrese la direccion del archivo CSV a evaluar.\nRecuerde ingresar la direccion completa, incluyendo el nombre del archivo con su extension.\nPor ejemplo: Documentos/Base_Datos/Dias_mora_2023.csv\nIngrese la direccion del archivo = "))
     print('///---' * 15)

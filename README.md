@@ -19,14 +19,14 @@ Sigue los pasos que se mencionan a continuación para ejecutar el algoritmo en t
 - Ingresa el número de la columna que contiene las fechas de inicio de la mora, contando las columnas de izquierda a derecha, iniciando el conteo con el número 0.
 - Ingresa el número de la columna que contiene las fechas de finalización de la mora, contando las columnas de izquierda a derecha, iniciando el conteo con el número 0.
 
-Despues de haber ingreso correctamente todos los datos solicitados, aparecerá en pantalla el nombre de cada una de las empresas analizadas, con los respectivos años evaluados, y la cantidad de fechas que se analizaron para cada una de ellas, ademas de generar un archivo CSV en la ubicacion indicada y con el nombre establecido, que contiene una tabla indicando la cantidad de días de mora de cada empresa, en cada año, para cada uno de los meses del año.
+Despues de haber ingresado correctamente todos los datos solicitados, aparecerá en pantalla el nombre de cada una de las empresas analizadas, con los respectivos años evaluados, y la cantidad de fechas que se analizaron para cada una de ellas, ademas de generar un archivo CSV en la ubicacion indicada y con el nombre establecido, que contiene una tabla indicando la cantidad de días de mora de cada empresa, en cada año, para cada uno de los meses del año.
 
 
 ## Requerimientos mínimos del programa
 
 Es importante tener en cuenta lo siguiente:
-- El archivo de entrada siempre debe estar en formato CSV
-- Las fechas de inicio y final de mora de las empresas deben estar en formato dd/mm/aa, no funcionará con formatos dd/mm/aaaa o diferentes al mencionado.
+- El archivo de entrada siempre debe estar en formato CSV, y el de salida siempre debe ser formato CSV
+- Las fechas de inicio y final de mora de las empresas deben estar en formato dd/mm/aaaa, no funcionará con formatos dd/mm/aa o diferentes al mencionado.
 - La primera columna de la tabla siempre debe tener los nombres de las empresas.
 
 ------------
