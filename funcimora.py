@@ -19,9 +19,24 @@ def init_data():
     return path,path2,fechaInicial,fechaFinal,Mora
 
 # CONVERSION DE FECHAS A FORMATO DATETIME
-def convert_to_datetime(date_str):
-    if date_str:
-        return datetime.strptime(date_str, '%d/%m/%Y')
+def convert_to_datetime(dateStr):
+    if dateStr:
+        for f in ['%d/%m/%Y','%d/%m/%y']:
+            try:
+                fecha = datetime.strptime(dateStr, f)
+                return fecha
+            except ValueError:
+                continue
+    else:
+        return None
+
+# AÑO YY O YYYY
+def yy_yyyy(date):
+    if date:
+        if '/' not in date[-4:]:
+            return 4
+        else:
+            return 2
     else:
         return None
 
@@ -60,9 +75,10 @@ def read_csv(path,row0,row1):
 
         for row in data:
             if row[0] != '':
-                if name != row[0] or year != str(row[row0][-4:]):
+                n = yy_yyyy(row[row0])            
+                if name != row[0] or year != str(row[row0][-n:]):
                     # Obtener nombres de las empresas
-                    year = str(row[row0][-4:])
+                    year = str(row[row0][-n:])
                     name = row[0]
                     key = name + '_' + year
                     if key not in companies.keys():                     
@@ -107,7 +123,7 @@ def dates(companyDates):
             Ti = date[0]
             Tf = date[1]
         else:
-            print('Error en la data. Recuerde ordenar las fechas de menor a mayor para la fecha de inicio')
+            print('Error en la data!')
             continue
         # Ejecutar funcion que cuenta la cantidad de dias dentro del rango
         days = count_days(NumM, Ti, Tf, C, days)
