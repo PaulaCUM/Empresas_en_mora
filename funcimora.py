@@ -18,30 +18,67 @@ def init_data():
     Mora = {}
     return path,path2,fechaInicial,fechaFinal,Mora
 
+# CONVERSION DE FECHAS A FORMATO DATETIME
+def convert_to_datetime(date_str):
+    if date_str:
+        return datetime.strptime(date_str, '%d/%m/%Y')
+    else:
+        return None
+
+# DIFERENTES AÑOS DE MORA
+def more_years(Fin,Ffi,comp,key,companies,values):
+    for n in range(Fin.year, Ffi.year + 1):
+        if n > Fin.year:
+            year = str(n)
+            name = comp
+            key = name + '_' + year
+            if key not in companies.keys():                     
+                values = []
+            else:
+                values = companies[key] 
+
+        if n == Fin.year:
+            values.append([Fin, convert_to_datetime(f"31/12/{n}")])
+        elif n < Ffi.year:                                              
+            values.append([convert_to_datetime(f"01/01/{n}"), convert_to_datetime(f"31/12/{n}")])
+        else:
+            values.append([convert_to_datetime(f"01/01/{n}"), Ffi])
+        companies[key] = values
+    return values
+
 # IMPORTAR CSV
 def read_csv(path,row0,row1):
-    with open(path,'r') as csvfile:
+    with open(path,'r', encoding='ISO-8859-1') as csvfile:
         data = csv.reader(csvfile, delimiter=';')
         companies = {}
         values = []
         key = ""
         year = ""
         name = ""
-        DateFormat = '%d/%m/%y'
         next(data)
+        data = sorted(data, key=lambda x: (x[0],convert_to_datetime(x[1])))
 
         for row in data:
             if row[0] != '':
-                if name != row[0] or year != str(row[row0][-2:]):
+                if name != row[0] or year != str(row[row0][-4:]):
                     # Obtener nombres de las empresas
-                    year = str(row[row0][-2:])
+                    year = str(row[row0][-4:])
                     name = row[0]
-                    key = name + '_' + year                        
-                    values = []                                   
+                    key = name + '_' + year
+                    if key not in companies.keys():                     
+                        values = []
+                    else:
+                        values = companies[key]
                 # Obtener valores de cada empresa y convertirlos a formato "fecha"
-                values.append([datetime.strptime(row[row0], DateFormat), datetime.strptime(row[row1], DateFormat)])
-                # Crear diccionario con las empresas y sus valores
-                companies[key] = values
+                Fin = convert_to_datetime(row[row0])
+                Ffi = convert_to_datetime(row[row1])
+                if Fin.year == Ffi.year:
+                    values.append([Fin, Ffi])
+                    # Crear diccionario con las empresas y sus valores
+                    companies[key] = values
+                else:                                                            
+                    more_years(Fin,Ffi,row[0],key,companies,values)
+                
     print('Se cargaron correctamente las siguientes empresas:')
     i = 0
     for key, value in companies.items():
